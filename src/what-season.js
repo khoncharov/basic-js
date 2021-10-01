@@ -1,17 +1,57 @@
-import { NotImplementedError } from '../extensions/index.js';
+// import { NotImplementedError } from "../extensions/index.js";
 
 /**
  * Extract season from given date and expose the enemy scout!
- * 
+ *
  * @param {Date | FakeDate} date real or fake date
  * @returns {String} time of the year
- * 
+ *
  * @example
- * 
+ *
  * getSeason(new Date(2020, 02, 31)) => 'spring'
- * 
+ *
  */
-export default function getSeason(/* date */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function getSeason(date) {
+  // function getSeason(date) {
+  const err = new Error("Invalid date!");
+  if (date === undefined) {
+    return "Unable to determine the time of year!";
+  }
+  let xx = new Date(date.toString());
+  try {
+    date.getMonth();
+  } catch (e) {
+    throw err;
+  }
+  if (date.getFullYear() !== xx.getFullYear()) {
+    throw err;
+  }
+  try {
+    switch (date.getMonth()) {
+      case 11:
+      case 0:
+      case 1:
+        return "winter";
+      case 2:
+      case 3:
+      case 4:
+        return "spring";
+      case 5:
+      case 6:
+      case 7:
+        return "summer";
+      case 8:
+      case 9:
+      case 10:
+        return "autumn";
+    }
+  } catch (e) {
+    throw err;
+  }
 }
+
+// console.log(getSeason("foo"));
+// console.log(getSeason({ John: "Smith" }));
+// console.log(getSeason(20192701));
+// console.log(getSeason([2019, "27", 0 + "1"]));
+// console.log(getSeason(() => new Date()));
